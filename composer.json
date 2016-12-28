@@ -31,7 +31,8 @@
         "fzaninotto/faker": "^1.6",
         "alcaeus/mongo-php-adapter": "^1.0",
         "doctrine/mongodb-odm": "^1.0",
-        "doctrine/mongodb-odm-bundle": "^3.0"
+        "doctrine/mongodb-odm-bundle": "^3.0",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
 
     },
     "require-dev": {
