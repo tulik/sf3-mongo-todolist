@@ -1,0 +1,25 @@
+homepage:
+    path: /
+    defaults: { _controller: AppBundle:Default:index }
+
+completed:
+    path: /completed/{task}
+    defaults: { _controller: AppBundle:Default:markAsCompleted }
+    methods: [POST]
+
+delete:
+    path: /delete/{task}
+    defaults: { _controller: AppBundle:Default:deleteItem }
+    methods: [POST]
+
+about:
+    path: /about
+    defaults: { _controller: AppBundle:Default:about }
+
+footer_modal:
+    path: /modal/footer_modal
+    defaults: { _controller: AppBundle:Modal:footerModal }
+
+generate_tasks_modal:
+    path: /modal/generate-tasks
+    defaults: { _controller: AppBundle:Modal:generateTasksModal}

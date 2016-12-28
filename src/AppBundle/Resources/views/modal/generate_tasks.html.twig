@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">You are about to generate random tasks!</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ asset('bundles/app/img/mongo_profile.png') }}" alt="" class="img-thumbnail img-fluid" />
+        </div>
+        <form method="POST" action="{{ url('generate_tasks_modal') }}">
+            {{ form_widget(form._token) }}
+            <div class="col-md-8">
+                <div class="form-group row">
+                    <div class="alert alert-info small">Maxiumum you can generate with one request is <strong>50</strong>!</div>
+                    <label for="task_generator_count" class="col-xs-4 col-form-label"><strong>How many?</strong></label>
+                    <div class="col-xs-8 task-input">
+                        <input class="form-control" type="number" id="task_generator_count" name="task_generator[count]" required="required">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-block btn-outline-warning add-new-task">Generate new tasks</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>

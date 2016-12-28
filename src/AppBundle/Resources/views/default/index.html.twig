@@ -1,0 +1,86 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    <div class="row header-cover">
+        <div class="header-space">
+            &nbsp;
+        </div>
+        <form method="POST">
+            {{ form_widget(form._token) }}
+            <div class="col-md-8 offset-md-2">
+                <div class="form-group row">
+                    <label for="value" class="col-xs-3 col-form-label"><strong>What:</strong></label>
+                    <div class="col-xs-9 task-input">
+                        <input class="form-control" type="text" id="task_value" name="task[value]" required="required">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="scheduled" class="col-xs-3 col-form-label"><strong>When:</strong></label>
+                    <div class="col-xs-9 task-input">
+                        <input class="form-control" type="text" id="task_scheduled" name="task[scheduled]" required="required">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-block btn-success add-new-task">Add new task</button>
+            </div>
+        </form>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>What to do?</th>
+                    <th>Scheduled</th>
+                    <th>Done</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    {% if not task.done %}
+                    <tr>
+                        <form method="POST" action="{{ url('completed', {'task': task.id}) }}">
+                            <th scope="row">{{ task.itemId }}</th>
+                            <td>{{ task.value }}</td>
+                            <td>{{ task.scheduled | date('Y-m-d H:i:s') }}</td>
+                            <td><button type="submit" class="btn btn-outline-success check"><i class="fa fa-check" aria-hidden="true"></i></button></td>
+                        </form>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>What is done?</th>
+                        <th>Completed</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    {% if task.done %}
+                        <tr>
+                            <form method="POST" action="{{ url('delete', {'task': task.id}) }}">
+                                <th scope="row">{{ task.itemId }}</th>
+                                <td>{{ task.value }}</td>
+                                <td>{{ task.completion | date('Y-m-d H:i:s')}}</td>
+                                <td><button type="submit" class="btn btn-outline-danger delete"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                            </form>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% block javascripts %}
+    <script defer src="{{ asset('bundles/app/js/index.js') }}"></script>
+{% endblock javascripts %}
+{% endblock %}

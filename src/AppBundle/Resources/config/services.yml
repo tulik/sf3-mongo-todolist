@@ -1,0 +1,9 @@
+services:
+    app.twig_extension:
+        class: AppBundle\Twig\AppExtension
+        arguments: ["@doctrine_mongodb.odm.document_manager",
+                    "@doctrine_mongodb.odm.default_connection",
+                    "@doctrine_mongodb.odm.data_collector.pretty"]
+        public: false
+        tags:
+            - { name: twig.extension }

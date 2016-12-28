@@ -1,0 +1,142 @@
+body {
+    padding-top: 2rem;
+}
+.brand{
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.header-space{
+    height: 7.5rem;
+}
+
+.header-cover{
+    position: relative;
+}
+.header-cover::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 3rem;
+    right: 0;
+    background: url('../img/mongodb.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+    opacity: .3;
+    content: "";
+    z-index: -1;
+}
+.footer-teaser{
+    position: absolute;
+    top: 12px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url('../img/gopher_head.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+    opacity: 1;
+
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+.main-lead{
+    padding: 1rem;
+}
+.task-input{
+    opacity: 0.95;
+}
+.timer{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-right-width: 0;
+}
+.task-generator{
+    padding-top: 5rem;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-right-width: 0;
+}
+a.check > i{
+    color: #5cb85c;
+}
+a.check:hover > i{
+    color: #ffffff;
+}
+.add-new-task{
+    font-size: 1.3rem;
+}
+.form-group{
+    padding-bottom: 1rem;
+}
+.form-control{
+    margin-bottom: 1rem;
+}
+hr.login{
+    margin-top: -1rem !important;
+}
+hr.password-change{
+    margin-top: -1rem !important;
+}
+a.cancel{
+    margin-left: 1rem;
+}
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 160px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 10px;
+    /* Set the fixed height of the footer here */
+    height: 150px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+.footer:first-of-type i {
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+    color: #eb9316;
+
+}
+hr.hr-footer{
+    margin-top: -1rem;
+    border-width: 2px;
+    border-style: dashed;
+    color: #f0f0f0;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+    padding: 60px 15px 0;
+
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    border-top-color: #f0f0f0;
+    border-top-width: 10px !important;
+    line-height: 2.8em;
+}
+.footer-stack{
+    opacity: 0.5;
+}
+.footer-stack:hover{
+    opacity: 1;
+    transition: opacity .25s ease-in-out;
+    -moz-transition: opacity .25s ease-in-out;
+    -webkit-transition: opacity .25s ease-in-out;
+}

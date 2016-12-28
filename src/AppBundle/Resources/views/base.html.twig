@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Symfony 3  - Example of todo list application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/jquery.datetimepicker.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/app.css') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('bundles/app/img/favicon.png') }}">
+</head>
+<body>
+<nav class="navbar  navbar-fixed-top navbar-dark bg-inverse">
+    <button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"></button>
+    <div class="collapse navbar-toggleable-md" id="navbarResponsive">
+        <a class="navbar-brand brand" href="#">
+            <img src="{{ asset('bundles/app/img/logo-sm.png') }}" width="32" height="32" class="align-top" alt=""> Todo List
+        </a>
+        <ul class="nav navbar-nav nav-inline">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('homepage') }}">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Homepage
+                </a>
+            </li>
+            {% if app.user %}
+                <li class="nav-item">
+                <a class="nav-link" href="{{ path('fos_user_security_logout') }}">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Logout
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav nav-inline pull-right hidden-sm-down">
+            <li class="nav-item">
+                <a class="btn btn-primary" href="{{ path('about') }}">
+                    <i class="fa fa-retweet" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Switch to MySQL
+                </a>
+            </li>
+            {% if app.user %}
+                <li class="nav-item ">
+                    <a class="btn btn-warning" data-url="{{ url('generate_tasks_modal') }}" data-toggle="modal" data-target="#modalWindow">
+                        <i class="fa fa-gears" aria-hidden="true"></i>&nbsp;&nbsp;Generete some tasks
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="template-starter">
+        <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+            <div class="alert alert-info small" role="alert">
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1"><i class="fa fa-database" aria-hidden="true"></i></div>
+                    <div class="col-xs-5"><strong>User count:</strong> {{ user_count()|number_format }}</div>
+                    <div class="col-xs-5"><strong>Task count:</strong> {{ task_count()|number_format }}</div>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+    {% block body %}
+
+    {% endblock body %}
+</div>
+<!-- /.container -->
+<footer class="footer">
+    <hr class="hr-footer"/>
+    <div class="container">
+        <div class="row">
+            <a data-url="{{ url('footer_modal') }}" data-toggle="modal" data-target="#modalWindow">
+                <div class="col-md-4 hidden-sm-down footer-teaser">&nbsp;</div>
+            </a>
+            <div class="col-md-8 col-sm-12 offset-md-4">
+                <div class="row">
+                    <a href="https://github.com/tulik/sf3-mongo-todolist">
+                        <div class="col-md-6 col-sm-6 footer-stack">
+                            <img src="{{ asset('bundles/app/img/footer_icons/github_icon_32x32.png') }}" width="32" height="32">
+                            <strong>&nbsp;Repository</strong>
+                        </div>
+                    </a>
+                    <a href="https://symfony.com/">
+                        <div class="col-md-6 col-sm-6 footer-stack">
+                            <img src="{{ asset('bundles/app/img/footer_icons/sf_icon_32x32.png') }}" width="32" height="32">
+                            <strong>&nbsp;Symfony 3.2.1</strong>
+                        </div>
+                    </a>
+                    <a href="https://www.mongodb.com/">
+                        <div class="col-md-6  col-sm-6 footer-stack">
+                            <img src="{{ asset('bundles/app/img/footer_icons/mongo_icon_32x32.png') }}" width="32" height="32">
+                            <strong>&nbsp;MongoDB 3.4.0</strong>
+                        </div>
+                    </a>
+                    <a href="http://php.net/">
+                        <div class="col-md-6 hidden-sm-down footer-stack">
+                            <img src="{{ asset('bundles/app/img/footer_icons/php_icon_32x32.png') }}" width="32" height="32">
+                            <strong>&nbsp;PHP 7.1</strong>
+                        </div>
+                    </a>
+                    <a href="https://www.apache.org/">
+                        <div class="col-md-6 hidden-sm-down footer-stack">
+                            <img src="{{ asset('bundles/app/img/footer_icons/apache_icon_32x32.png') }}" width="32" height="32">
+                            <strong>&nbsp;Apache 2.4</strong>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div id="timer" class="col-lg-3 col-md-4 col-sm-5 offset-lg-9 offset-md-8 offset-sm-7 offset-xs-6 alert alert-info navbar-fixed-bottom timer small" role="alert">
+    <i class="fa fa-database" aria-hidden="true"></i>&nbsp;
+    {% set query_time = query_time() %}
+    {% if query_time == 0 %}
+        <strong class="text-danger">Err! Log overhead</strong>
+    {% else %}
+        <strong>{{ query_count() }}</strong> queries in: <strong>{{ query_time() }} ms</strong>
+    {% endif %}
+    <br/>
+    <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+    Total time: <strong>{{ request_time() }} ms</strong>
+</div>
+
+<div class="modal fade" id="modalWindow" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!--./modal -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('bundles/app/js/jquery.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/tether.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bundles/app/js/sessvars.js') }}"></script>
+<script src="{{ asset('bundles/app/js/jquery.datetimepicker.full.min.js') }}"></script>
+<script defer src="{{ asset('bundles/app/js/app.js') }}"></script>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-78048302-2', 'auto');
+    ga('send', 'pageview');
+
+</script>
+{% block javascripts %}
+
+{% endblock javascripts %}
+
+</body>
+</html>

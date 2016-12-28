@@ -1,2 +1,4 @@
-# sf3-mongo-todolist
-Simple todo-list application based on Symfony 3 and MongoDB
+todolist
+========
+
+A Symfony project created on December 24, 2016, 9:41 pm.
