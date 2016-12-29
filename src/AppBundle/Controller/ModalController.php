@@ -29,8 +29,12 @@ class ModalController extends Controller
             }
             $tasksRepository = $dm->getRepository('AppBundle:Task');
             $userTask = $tasksRepository->getLastTask($user);
-            $userTaskId = $userTask->getItemId();
-            while(--$count){
+            if(is_null($userTask)){
+                $userTaskId = 0;
+            }else{
+                $userTaskId = $userTask->getItemId();
+            }
+            while($count--){
                 $faker = Faker\Factory::create();
                 $task = new Task();
                 $task->setUserId($user);

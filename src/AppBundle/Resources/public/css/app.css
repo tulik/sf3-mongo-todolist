@@ -5,6 +5,42 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
+.mongodb-head{
+    position: inherit;
+}
+
+.mongodb-head::before{
+    position: absolute;
+    top: 0;
+    left: 11rem;
+    bottom: 11rem;
+    right: 11rem;
+    background: url('../img/mongodb.png') no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+    animation: seconds 3s ease forwards;
+    animation-iteration-count: 1;
+    animation-delay: 0s;
+    opacity: 0.8;
+    content: "";
+    z-index: -1;
+}
+@-webkit-keyframes seconds {
+    100% {
+        opacity: 0.3;
+    }
+}
+@keyframes seconds {
+    100% {
+        opacity: 0.3;
+    }
+}
+.transparency > div{
+    background-color: white;
+    opacity: 0.96;
+
+}
+
 .header-space{
     height: 7.5rem;
 }
@@ -34,7 +70,11 @@ body {
     background: url('../img/gopher_head.png') no-repeat center;
     -webkit-background-size: contain;
     background-size: contain;
-    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+    transition: transform 1.5s ease;
+
+}.footer-teaser:hover{
+     transform: translate3d(0, 50px, 0);
 
 }
 .starter-template {

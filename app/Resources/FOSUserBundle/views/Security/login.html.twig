@@ -2,22 +2,32 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
+    <div class="row mongodb-head">
+        <div class="col-md-8 offset-md-2 transparency">
+            {% if error %}
+                <div class="alert alert-danger text-xs-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
             <div class="card">
                 <div class="card-header">Log in into account</div>
                 <div class="card-block">
+
                     {% if not app.user %}
-                        {{ render(controller('AppBundle:Default:showCredentials')) }}
+                        {% if error %}
+                            <div class="alert alert-success text-xs-center">
+                                    {{ render(controller('AppBundle:Default:showCredentials')) }}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info text-xs-center">
+                                {{ render(controller('AppBundle:Default:showCredentials')) }}
+                            </div>
+                        {% endif %}
                     {% endif %}
 
                     <form action="{{ path("fos_user_security_check") }}" method="POST">
                         {% if csrf_token %}
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
                         {% endif %}
+
                         <div class="form-group">
                             <label for="username" class="col-xs-4 form-label"><strong>Login:</strong></label>
                             <div class="col-xs-8">

@@ -18,7 +18,11 @@ class DefaultController extends Controller
         $tasks = $tasksRepository->findBy(['userId' => $user->getUsername()]);
         $tasksRepository = $dm->getRepository('AppBundle:Task');
         $userTask = $tasksRepository->getLastTask($user);
-        $userTaskId = $userTask->getItemId();
+        if(is_null($userTask)){
+            $userTaskId = 0;
+        }else{
+            $userTaskId = $userTask->getItemId();
+        }
 
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
