@@ -20,17 +20,24 @@
         </a>
         <ul class="nav navbar-nav nav-inline">
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('homepage') }}">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Homepage
-                </a>
+                <h5>
+                    <a class="nav-link  text-warning" href="https://tulik.github.io">
+                        <i class="fa fa-bookmark" aria-hidden="true"></i>
+                        <strong>
+                            Symfony blog
+                        </strong>
+                    </a>
+                </h5>
             </li>
-            {% if app.user %}
-                <li class="nav-item">
-                <a class="nav-link" href="{{ path('fos_user_security_logout') }}">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Logout
-                </a>
+            <li class="nav-item">
+                <h5>
+                    <a class="nav-link text-info" href="https://tulik.github.io/2017/01/10/mongo-vs-mysq-in-live-application">
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                        <strong>
+                            &nbsp;&nbsp;About this project
+                        </strong>
+                    </a>
+                </h5>
             </li>
             {% endif %}
         </ul>
