@@ -9,7 +9,6 @@ use AppBundle\Form\TaskType;
 
 class DefaultController extends Controller
 {
-
     public function indexAction(Request $request)
     {
         $user = $this->getUser();
@@ -18,9 +17,9 @@ class DefaultController extends Controller
         $tasks = $tasksRepository->findBy(['userId' => $user->getUsername()]);
         $tasksRepository = $dm->getRepository('AppBundle:Task');
         $userTask = $tasksRepository->getLastTask($user);
-        if(is_null($userTask)){
+        if (is_null($userTask)) {
             $userTaskId = 0;
-        }else{
+        } else {
             $userTaskId = $userTask->getItemId();
         }
 

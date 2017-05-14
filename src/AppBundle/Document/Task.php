@@ -173,5 +173,4 @@ class Task
     {
         $this->value = $value;
     }
-
 }

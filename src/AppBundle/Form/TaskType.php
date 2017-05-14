@@ -15,7 +15,7 @@ class TaskType extends AbstractType
             ->add('value', TextType::class, [
                 'label' => 'What:'
                     ])
-            ->add('scheduled',TextType::class, [
+            ->add('scheduled', TextType::class, [
                 'label' => 'When:'
             ])
         ;

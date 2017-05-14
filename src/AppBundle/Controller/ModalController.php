@@ -7,6 +7,7 @@ use AppBundle\Form\TaskGeneratorType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Document\Task;
 use Faker;
+
 class ModalController extends Controller
 {
     public function footerModalAction()
@@ -24,22 +25,22 @@ class ModalController extends Controller
             $count = $formData['count'];
             $user = $this->getUser();
 
-            if($count >= 51){
+            if ($count >= 51) {
                 $count = 50;
             }
             $tasksRepository = $dm->getRepository('AppBundle:Task');
             $userTask = $tasksRepository->getLastTask($user);
-            if(is_null($userTask)){
+            if (is_null($userTask)) {
                 $userTaskId = 0;
-            }else{
+            } else {
                 $userTaskId = $userTask->getItemId();
             }
-            while($count--){
+            while ($count--) {
                 $faker = Faker\Factory::create();
                 $task = new Task();
                 $task->setUserId($user);
                 $task->setItemId(++$userTaskId);
-                $task->setScheduled(new \DateTime(date('Y-m-d H:i:s', strtotime( '+'.mt_rand(0,30).' days '.mt_rand(0,24). ' hours '.mt_rand(0,60).' minutes'))));
+                $task->setScheduled(new \DateTime(date('Y-m-d H:i:s', strtotime('+'.mt_rand(0, 30).' days '.mt_rand(0, 24). ' hours '.mt_rand(0, 60).' minutes'))));
                 $task->setTimestamp(new \DateTime());
                 $task->setValue($faker->sentence($nbWords = 6, $variableNbWords = true));
                 $task->setCompletion(new \DateTime());
@@ -54,5 +55,4 @@ class ModalController extends Controller
             'form' => $form->createView(),
         ]);
     }
-
 }

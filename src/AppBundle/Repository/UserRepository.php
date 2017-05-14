@@ -30,5 +30,4 @@ class UserRepository extends DocumentRepository
 
         return $qb->getQuery()->getSingleResult();
     }
-
 }

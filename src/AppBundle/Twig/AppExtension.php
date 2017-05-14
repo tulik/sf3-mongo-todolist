@@ -31,7 +31,7 @@ class AppExtension extends \Twig_Extension
      * @param Connection $connection
      * @param PrettyDataCollector $prettyDataCollector
      */
-    function __construct(DocumentManager $documentManager,
+    public function __construct(DocumentManager $documentManager,
                          Connection $connection,
                          PrettyDataCollector $prettyDataCollector)
     {
@@ -72,14 +72,14 @@ class AppExtension extends \Twig_Extension
     {
         $profile = $this->mongoDBconnection->selectCollection("todolist", "system.profile");
         $executionTimes = $profile->find(["millis" => ['$gte' => 0 ]])->limit(50)->sort(['ts' => -1])->toArray();
-        $request_time_micro = (double) $_SERVER['REQUEST_TIME_FLOAT']*pow(10,6);
+        $request_time_micro = (double) $_SERVER['REQUEST_TIME_FLOAT']*pow(10, 6);
 
-        foreach ($executionTimes as $key => $executionTime){
-            if(doubleval($executionTime['ts']->sec.$executionTime['ts']->usec) <= doubleval($request_time_micro)){
+        foreach ($executionTimes as $key => $executionTime) {
+            if (doubleval($executionTime['ts']->sec.$executionTime['ts']->usec) <= doubleval($request_time_micro)) {
                 unset($executionTimes[$key]);
             }
           //Set this to avoid counting councurent requests
-            if(doubleval($executionTime['ts']->sec.$executionTime['ts']->usec) > doubleval($request_time_micro - microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'])*1000){
+            if (doubleval($executionTime['ts']->sec.$executionTime['ts']->usec) > doubleval($request_time_micro - microtime(true) - $_SERVER['REQUEST_TIME_FLOAT'])*1000) {
                 unset($executionTimes[$key]);
             }
         }
@@ -89,10 +89,9 @@ class AppExtension extends \Twig_Extension
         $tmp = array_values($tmp);
         $databaseQueries = $tmp[0];
 
-        if(count($executionTimes) < $databaseQueries){
+        if (count($executionTimes) < $databaseQueries) {
             return 0;
-
-        }else{
+        } else {
             $executionTimeNs =
                 (current($executionTimes)['ts']->sec.current($executionTimes)['ts']->usec)
                 - (end($executionTimes)['ts']->sec.end($executionTimes)['ts']->usec);
